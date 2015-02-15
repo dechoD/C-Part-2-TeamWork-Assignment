@@ -21,4 +21,4 @@ Team work assignment for course C# Part 2 in Telerik Academy season 2015.
 
 Иван - няма предложение все още
 
-Аз - аз съм съгласна с идеята за minesweep
+Вели - Съгласна с идеята за minesweep
