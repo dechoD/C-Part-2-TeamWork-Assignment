@@ -13,7 +13,7 @@ Team work assignment for course C# Part 2 in Telerik Academy season 2015.
 
 
 
-Мишо - бесеница
+Мишо - (бесеница) Давам вот за Minesweeper,
 
 
 
