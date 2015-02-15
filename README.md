@@ -19,7 +19,7 @@ Team work assignment for course C# Part 2 in Telerik Academy season 2015.
 https://www.youtube.com/watch?v=192J_wJT8wQ
 Така гласувам за игра, която не е свързана с много изчисления или, която няма сложни правила, но работи коректно и изглежда чудесно за потребителя.
 
-Добромир - гласува за " Minesweep "
+Добромир - гласува за "Minesweep"
 
 Иван - няма предложение все още
 
