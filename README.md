@@ -44,3 +44,5 @@ https://www.youtube.com/watch?v=192J_wJT8wQ
 Вели - Съгласна с идеята за minesweep
 
 -----
+
+Павлета - гласува за "Minesweep"
