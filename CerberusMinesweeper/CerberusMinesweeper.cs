@@ -59,17 +59,27 @@ class CerberusMinesweeper
     /// <param name="difficulty"> The difficulty determines the row and column count </param>
     /// <returns> An integer array with the given dimensions </returns>
     static int[,] CreateBoard(int difficulty)
-    { 
-        // decho working here
-        return new int[10, 10];
+    {
+        if (difficulty == 1)
+        {
+            return new int[9, 9];
+        }
+        else if (difficulty == 2)
+        {
+            return new int[16, 16];
+        }
+        else
+        {
+            return new int[16, 30];
+        }
     }
 
     /// <summary>
     /// Populates an array with mines at randomly generated positions
     /// </summary>
     /// <param name="array"> mines and numbers array </param>
-    /// <param name="mineCount"> number of mines to be generated </param>
-    static void FillWithRandomMines(int[,] array, int mineCount)
+    /// <param name="difficulty"> determines the number of mines to be generated </param>
+    static void FillWithRandomMines(int[,] array, int difficulty)
     {
         // decho working here
     }
@@ -115,7 +125,7 @@ class CerberusMinesweeper
 
         //// new game start
         //PrintDifficultyMenu();
-        //CreateBoard();
+        int[,] board = CreateBoard(3);        
         //FillWithRandomMines();
         //CalculateDigitsArroundMines();
 
