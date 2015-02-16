@@ -83,5 +83,14 @@ class CerberusMinesweeper
 
     static void Main()
     {
+        //PrintDifficultyMenu();
+        //CreateBoard();
+        //FillWithRandomMines();
+        //CalculateDigitsArroundMines();
+
+        //// start
+        //PrintBoard();
+        //PrintMinesLeft();
+        //PrintTimeElapsed();
     }
 }
