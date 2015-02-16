@@ -25,6 +25,34 @@ class CerberusMinesweeper
     }
 
     /// <summary>
+    /// Prints a mines left count
+    /// </summary>
+    /// <param name="array"> The array with the mines and numbers </param>
+    static void PrintMinesLeft(int[] array)
+    {
+        // TODO: Implement method to print the mines left somewhere using PrintMessageOnConsole Method
+    }
+
+    /// <summary>
+    /// Keeping count of the seconds after the game has started    
+    /// </summary>
+    /// <param name="start"> the time the game started </param>
+    static void PrintTimeElapsed(DateTime start)
+    { 
+        // TODO: Implement method to print the time since the game started
+    }
+
+    /// <summary>
+    /// Draws the board
+    /// </summary>
+    /// <param name="minesArray"> the array with the mines and numbers</param>
+    /// <param name="visibilityArray"> the array with the information about what is visible to the player </param>
+    static void PrintBoard(int[] minesArray, int[] visibilityArray)
+    {
+        // TODO: Implement drawing of the board     
+    }
+
+    /// <summary>
     /// Creates a playing field with the given dimensions
     /// </summary>
     /// <param name="difficulty"> The difficulty determines the row and column count </param>
