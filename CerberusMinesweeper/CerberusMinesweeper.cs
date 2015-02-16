@@ -60,7 +60,7 @@ class CerberusMinesweeper
     /// <returns> An integer array with the given dimensions </returns>
     static int[,] CreateBoard(int difficulty)
     { 
-        // TODO: Implement array creation
+        // decho working here
         return new int[10, 10];
     }
 
@@ -71,7 +71,7 @@ class CerberusMinesweeper
     /// <param name="mineCount"> number of mines to be generated </param>
     static void FillWithRandomMines(int[,] array, int mineCount)
     {
-        // TODO:Implement random generation of n mines in the array
+        // decho working here
     }
 
     /// <summary>
