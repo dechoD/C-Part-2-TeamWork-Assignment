@@ -50,6 +50,7 @@ class CerberusMinesweeper
     /// <param name="visibilityArray"> the array with the information about what is visible to the player </param>
     static void PrintBoard(string[,] minesArray, int[,] visibilityArray)
     {
+        // Kiril will work here... 
         // TODO: Implement drawing of the board     
     }
 
