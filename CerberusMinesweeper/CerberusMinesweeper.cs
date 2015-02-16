@@ -21,8 +21,7 @@ class CerberusMinesweeper
     /// <returns> An integer representing the difficuilty </returns>    
     static int PrintDifficultyMenu(int xCord, int yCoord)
     {
-        // TODO: Implement difficulty menu with choices 1(Easy), 2(Medium) and 3(Hard) using PrintMessageOnConsole method
-        // TODO: If we have time - custom dificulty
+        // Misho will work here ..
         return 0;
     }
 
