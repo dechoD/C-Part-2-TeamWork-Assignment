@@ -75,6 +75,23 @@ class CerberusMinesweeper
     }
 
     /// <summary>
+    /// Method for visualizing the board for debugging purposes only
+    /// </summary>
+    /// <param name="array"> the array needs debugging </param>
+    static void DebugPrintBoard(int[,] array)
+    {
+        for (int row  = 0; row  < array.GetLength(0); row ++)
+        {
+            for (int col = 0; col < array.GetLength(1); col++)
+            {
+                Console.Write("{0,2}", array[row, col]);
+            }
+
+            Console.WriteLine();
+        }
+    }
+
+    /// <summary>
     /// Populates an array with mines at randomly generated positions
     /// </summary>
     /// <param name="array"> mines and numbers array </param>
@@ -125,7 +142,8 @@ class CerberusMinesweeper
 
         //// new game start
         //PrintDifficultyMenu();
-        int[,] board = CreateBoard(3);        
+        int[,] board = CreateBoard(3);
+        DebugPrintBoard(board);
         //FillWithRandomMines();
         //CalculateDigitsArroundMines();
 
