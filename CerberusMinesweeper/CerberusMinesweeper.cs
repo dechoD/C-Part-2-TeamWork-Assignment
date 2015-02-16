@@ -122,7 +122,7 @@ class CerberusMinesweeper
     }
 
     /// <summary>
-    /// Populates an array with mines at randomly generated positions
+    /// Populates an array with mines symbol "*" at randomly generated positions
     /// </summary>
     /// <param name="array"> mines and numbers array </param>
     /// <param name="difficulty"> determines the number of mines to be generated </param>
@@ -207,11 +207,11 @@ class CerberusMinesweeper
         //// main loop - exit only after negative answer in AskForNewGame() method
 
         //// new game start
-        //PrintDifficultyMenu();
-        string[,] board = CreateBoard(2);
+        //int dificulty = PrintDifficultyMenu();
+        string[,] board = CreateBoard(1);
         DebugPrintBoard(board);
-        Console.WriteLine();
-        FillWithRandomMines(board, 2);
+        Console.WriteLine("Board with random mines:");
+        FillWithRandomMines(board, 1);
         DebugPrintBoard(board);
         //CalculateDigitsArroundMines();
 
