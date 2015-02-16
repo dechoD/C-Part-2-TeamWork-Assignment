@@ -21,7 +21,7 @@ class CerberusMinesweeper
     /// <returns> An integer representing the difficuilty </returns>    
     static int PrintDifficultyMenu(int xCord, int yCoord)
     {
-        // TODO: Implement difficulty menu using PrintMessageOnConsole method
+        // Misho will work here ..
         return 0;
     }
 
