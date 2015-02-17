@@ -3,26 +3,40 @@
 class CerberusMinesweeper
 {
     /// <summary>
-    /// Prints a message on the console
+    /// Prints a message on a given possition
     /// </summary>
     /// <param name="message"> the message to be printed </param>
-    /// <param name="xCoord"> x coordinate of the console position </param>
-    /// <param name="yCoord"> y coordinate of the console position </param>
+    /// <param name="xCoord"> horizontal offset in symbols from left to right </param>
+    /// <param name="yCoord"> vertical offset in symbols from top to bottom </param>
     static void PrintMessageOnConsole(string message, int xCoord, int yCoord)
-    { 
-        // TODO: Implement message printing on the console
+    {
+        Console.SetCursorPosition(yCoord, xCoord);
+        Console.WriteLine(message);
     }
 
     /// <summary>
     /// Method used to print a difficulty menu on the console
     /// </summary>
-    /// <param name="xCord"> x position of the upper left corner of the menu </param>
-    /// <param name="yCoord"> y position of the upper left corner of the menu </param>
+    /// <param name="xCord"> horizontal of the upper left corner of the menu </param>
+    /// <param name="yCoord"> vertical position of the upper left corner of the menu </param>
     /// <returns> An integer representing the difficuilty </returns>    
     static int PrintDifficultyMenu(int xCord, int yCoord)
     {
         // Misho will work here ..
         return 0;
+    }
+
+    /// <summary>
+    /// Method to count the mines left to be marked. That will count the flagged cells.
+    /// One of the parameters will not be needed eventually.
+    /// </summary>
+    /// <param name="board"> The board with the mines and cell values </param>
+    /// <param name="visibilityArray"> The array with the visibility </param>
+    /// <returns> the count to be printed by PrintMinesLeft method </returns>
+    static int CountMinesLeft(string[,] board, string[,] visibilityArray)
+    { 
+        // TODO: Implement a method to calculate the mines left to be marked
+        return 100;
     }
 
     /// <summary>
@@ -210,7 +224,7 @@ class CerberusMinesweeper
         //// new game start
         //int dificulty = PrintDifficultyMenu();
         string[,] board = CreateBoard(1);
-        DebugPrintBoard(board);
+        string[,] visibilityBoard = CreateBoard(1);
         Console.WriteLine("Board with random mines:");
         FillWithRandomMines(board, 1);
         DebugPrintBoard(board);
