@@ -53,7 +53,8 @@ class CerberusMinesweeper
     /// </summary>
     /// <param name="start"> the time the game started </param>
     static void PrintTimeElapsed(DateTime start)
-    { 
+    {
+        //Pavleta will work here...
         // TODO: Implement method to print the time since the game started
     }
 
