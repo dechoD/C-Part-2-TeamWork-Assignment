@@ -198,6 +198,7 @@ class CerberusMinesweeper
     /// <param name="scoreFilePath"> path to the file with the high scores </param>
     static void WriteEndGameMessage(string scoreFilePath)
     {
+        // Niko will work here...
         // TODO: Implement message print for end of the game (win and lose)
     }
 
