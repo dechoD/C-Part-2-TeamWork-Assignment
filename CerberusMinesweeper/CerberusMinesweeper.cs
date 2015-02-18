@@ -25,7 +25,7 @@ class CerberusMinesweeper
     /// <returns> An integer representing the difficuilty </returns>    
     static int PrintDifficultyMenu(int xCord, int yCoord)
         {
-        // Misho will work here ..
+        // Misho will work here .. after Saturday ...
         return 0;
         }
 
