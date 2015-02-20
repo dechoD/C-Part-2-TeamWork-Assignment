@@ -63,11 +63,18 @@ class CerberusMinesweeper
         Console.ForegroundColor = ConsoleColor.Cyan;
         //Pavleta worked here...
     }
+
     /// <summary>
     /// Draws the board
     /// </summary>
     /// <param name="minesArray"> the array with the mines and numbers</param>
-    /// <param name="visibilityArray"> the array with the information about what is visible to the player </param>
+    /// <param name="visibilityArray">
+    /// The array with the information about what is visible to the player
+    /// 0 - invisible
+    /// 1 - visible
+    /// 2 - marked as mine
+    /// 3 - cursor position
+    /// </param>
     static void PrintBoard(string[,] minesArray, int[,] visibilityArray)
         {
         // Kiril will work here... 
