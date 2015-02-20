@@ -4,7 +4,7 @@ using System.Timers;
 using Timer = System.Timers.Timer;
 
 class CerberusMinesweeper
-    {
+{
     /// <summary>
     /// Prints a message on a given position
     /// </summary>
@@ -231,7 +231,6 @@ class CerberusMinesweeper
         return count;
     }
 
-
     /// <summary>
     /// Fills the cells around the mines with the right numbers
     /// </summary>
@@ -278,7 +277,7 @@ class CerberusMinesweeper
         }
 
     static void Main()
-        {
+    {
         //// main loop - exit only after negative answer in AskForNewGame() method
 
         //// new game start
@@ -290,24 +289,26 @@ class CerberusMinesweeper
         Console.WriteLine("Random board:");
         DebugPrintBoard(board);
 
-        //// start of current game loop
-        //PrintBoard();
-        //PrintMinesLeft();
-        //PrintTimeElapsed();
-        Timer myTimer = new Timer();
-        myTimer.Elapsed += new ElapsedEventHandler(PrintTimeElapsed);
-        myTimer.Enabled = true;
-        myTimer.Interval = 1000;
-        myTimer.AutoReset = true;
         while (true)
         {
-            ;
-        }
-        // catch movement and clicks
+            //PrintBoard();
+            //PrintMinesLeft();
+            //PrintTimeElapsed();
+            Timer myTimer = new Timer();
+            myTimer.Elapsed += new ElapsedEventHandler(PrintTimeElapsed);
+            myTimer.Enabled = true;
+            myTimer.Interval = 1000;
+            myTimer.AutoReset = true;
+            while (true)
+            {
+                ;
+            }
+            // catch movement and clicks
 
-        //// game end
-        //WriteEndGameMessage();
-        //WriteHighScore();
-        //AskForNewGame();
+            //// game end
+            //WriteEndGameMessage();
+            //WriteHighScore();
+            //AskForNewGame();            
         }
     }
+}
