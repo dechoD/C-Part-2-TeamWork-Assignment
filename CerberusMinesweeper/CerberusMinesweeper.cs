@@ -277,6 +277,7 @@ class CerberusMinesweeper
     static void AskForNewGame()
         {
         // TODO: Implement logic for new game question to user and exit if negative
+        // Ivan will work here
         }
 
     static void Main()
