@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Timers;
-using Timer = System.Timers.Timer;
+using System.Threading;
 
 class CerberusMinesweeper
 {
+    static DateTime start = DateTime.Now;
     /// <summary>
     /// Prints a message on a given position
     /// </summary>
@@ -55,13 +54,18 @@ class CerberusMinesweeper
     /// Keeping count of the seconds after the game has started    
     /// </summary>
     /// <param name="start"> the time the game started </param>
-    static void PrintTimeElapsed(object source, ElapsedEventArgs e)
+    static void PrintTimeElapsed()
     {
         // TODO: Implement method to print the time since the game started
-        var timeElapsedInSeconds = DateTime.Now - Process.GetCurrentProcess().StartTime;
-        Console.Write("\rTime elapsed: {0:c}", timeElapsedInSeconds);
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        //Pavleta worked here...
+        //Pavleta worked here...        
+    while (true)
+        {
+        Console.SetCursorPosition(1, 11); // just for testing
+        TimeSpan difference = DateTime.Now - start;
+        Thread.Sleep(200);
+        int seconds = (int)difference.TotalSeconds;
+        Console.Write("Time elapsed: {0}", seconds);
+        }              
     }
 
     /// <summary>
@@ -294,15 +298,8 @@ class CerberusMinesweeper
             //PrintBoard();
             //PrintMinesLeft();
             //PrintTimeElapsed();
-            Timer myTimer = new Timer();
-            myTimer.Elapsed += new ElapsedEventHandler(PrintTimeElapsed);
-            myTimer.Enabled = true;
-            myTimer.Interval = 1000;
-            myTimer.AutoReset = true;
-            while (true)
-            {
-                ;
-            }
+            PrintTimeElapsed();
+
             // catch movement and clicks
 
             //// game end
