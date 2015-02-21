@@ -56,16 +56,15 @@ class CerberusMinesweeper
     /// <param name="start"> the time the game started </param>
     static void PrintTimeElapsed()
     {
-        // TODO: Implement method to print the time since the game started
         //Pavleta worked here...        
-    while (true)
-        {
-        Console.SetCursorPosition(1, 11); // just for testing
-        TimeSpan difference = DateTime.Now - start;
-        Thread.Sleep(200);
-        int seconds = (int)difference.TotalSeconds;
-        Console.Write("Time elapsed: {0}", seconds);
-        }              
+        while (true)
+            {
+            Console.SetCursorPosition(1, 11); // just for testing
+            TimeSpan difference = DateTime.Now - start;
+            Thread.Sleep(200);                
+            int seconds = (int)difference.TotalSeconds;
+            Console.Write("Time elapsed: {0}", seconds);
+            }              
     }
 
     /// <summary>
@@ -282,30 +281,32 @@ class CerberusMinesweeper
 
     static void Main()
     {
-        //// main loop - exit only after negative answer in AskForNewGame() method
+        //while (gameInProgress)
+        //{
+            //// new game start
+            //bool gameInProgress = true;
+            //int dificulty = PrintDifficultyMenu();
+            string[,] board = CreateBoard(1);
+            string[,] visibilityBoard = CreateBoard(1);
+            FillWithRandomMines(board, 1);
+            CalculateDigitsArroundMines(board);
+            Console.WriteLine("Random board:");
+            DebugPrintBoard(board);
 
-        //// new game start
-        //int dificulty = PrintDifficultyMenu();
-        string[,] board = CreateBoard(1);
-        string[,] visibilityBoard = CreateBoard(1);
-        FillWithRandomMines(board, 1);
-        CalculateDigitsArroundMines(board);
-        Console.WriteLine("Random board:");
-        DebugPrintBoard(board);
+            while (true)
+            {
+                //PrintBoard();
+                //PrintMinesLeft();
+                PrintTimeElapsed();
 
-        while (true)
-        {
-            //PrintBoard();
-            //PrintMinesLeft();
-            //PrintTimeElapsed();
-            PrintTimeElapsed();
+                // catch movement and clicks
 
-            // catch movement and clicks
+                // catch game end and exit this loop
+            }
 
-            //// game end
             //WriteEndGameMessage();
             //WriteHighScore();
-            //AskForNewGame();            
-        }
+            //AskForNewGame();
+        //}
     }
 }
