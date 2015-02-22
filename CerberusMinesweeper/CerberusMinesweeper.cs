@@ -168,7 +168,6 @@ class CerberusMinesweeper
     /// 0 - invisible
     /// 1 - visible
     /// 2 - marked as mine
-    /// 3 - cursor position
     /// </param>
     static void PrintBoard(string[,] minesArray, string[,] visibilityArray, int curRow, int curCol)
     {
@@ -182,6 +181,14 @@ class CerberusMinesweeper
                 if (row == curRow && col == curCol)
                 {
                     Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.Write(" ");
+                    Console.ResetColor();
+                    continue;
+                }
+                // If marked as mine
+                if (visibilityArray[row, col] == "2")
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
                     Console.Write(" ");
                     Console.ResetColor();
                     continue;
@@ -453,19 +460,20 @@ class CerberusMinesweeper
 
     static void Main()
     {
+
+        //while (gameInProgress)
+        //{
+        //// New game start
+        //bool gameInProgress = true;
+
+        //// Difficulty menu
         //Console.BufferHeight = Console.WindowHeight = 30; // -- To diable vertical scrollbar  
         //Console.BufferWidth = Console.WindowWidth = 70;   // To disable horizontal scrollbar . Max value is your screen resolution , so keep in mind.
         Console.Title = "Misesweeper";  // Title of console's window
         int dificulty = PrintDifficultyMenu();
         Console.Clear();
-        Console.ForegroundColor = ConsoleColor.White;
+        Console.ForegroundColor = ConsoleColor.White;    
         
-    //while (gameInProgress)
-    //{
-    //// new game start
-    
-        //bool gameInProgress = true;
-        //int dificulty = PrintDifficultyMenu();
         string[,] board = CreateBoard(dificulty);
         string[,] visibilityBoard = CreateBoard(dificulty);
         FillWithRandomMines(board, dificulty);
@@ -500,6 +508,18 @@ class CerberusMinesweeper
                     if (userInput.Key == ConsoleKey.DownArrow)
                     {
                         if (cursorRow < board.GetUpperBound(0)) cursorRow += 1;
+                    }
+                    if (userInput.Key == ConsoleKey.A)
+                    {
+                        if (visibilityBoard[cursorRow, cursorCol] == "0")
+                        {
+                            visibilityBoard[cursorRow, cursorCol] = "2";
+                        }
+                        else if (visibilityBoard[cursorRow, cursorCol] == "2")
+                        {
+                            visibilityBoard[cursorRow, cursorCol] = "0";
+                        }
+                        
                     }
                 }
 
