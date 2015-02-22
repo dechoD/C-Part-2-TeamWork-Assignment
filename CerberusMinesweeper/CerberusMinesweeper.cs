@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 
+
 class CerberusMinesweeper
 {
     static DateTime start = DateTime.Now;
@@ -22,11 +23,105 @@ class CerberusMinesweeper
     /// <param name="xCord"> horizontal of the upper left corner of the menu </param>
     /// <param name="yCoord"> vertical position of the upper left corner of the menu </param>
     /// <returns> An integer representing the difficulty </returns>    
-    static int PrintDifficultyMenu(int xCord, int yCoord)
+    /// 
+
+    public struct MCursor          // ------- Yankov-------
     {
-        // Misho will work here .. after Saturday ...
-        return 0;
+        public int x;
+        public int y;
+        public string text;
+        public ConsoleColor color;
+
     }
+    static void PrintPosition(int x, int y, string c, ConsoleColor color = ConsoleColor.White)  // ---- Yankov-------
+    {
+        Console.SetCursorPosition(x, y);
+        Console.ForegroundColor = color;
+        Console.Write(c);
+    }
+    static int PrintDifficultyMenu()   //----- Yankov ----   //int xCord, int yCoord
+    {
+        Console.CursorVisible = false;
+        MCursor objCursor = new MCursor();
+        objCursor.x = 3;
+        objCursor.y = 3;
+        objCursor.color = ConsoleColor.Green;
+        objCursor.text = ">";
+        
+        
+        // Welcome to Minesweeper
+        PrintPosition(Console.WindowWidth / 2 - 11, 0, " Welcome to Minesweeper ", ConsoleColor.White);
+        PrintPosition(5, 3, "Easy (9x9)", ConsoleColor.White);
+        PrintPosition(5, 5, "Medium (16x16)", ConsoleColor.White);
+        PrintPosition(5, 7, "Hard (16x30)", ConsoleColor.White);
+        while (true)
+        {
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo pressedkey = Console.ReadKey(true);
+                while (Console.KeyAvailable)
+                {
+                    Console.ReadKey(true);
+
+                }
+                if(objCursor.y == 3)  // Option easy
+                {
+                    if(pressedkey.Key == ConsoleKey.DownArrow)
+                    {
+                        objCursor.y = 5;
+                        PrintPosition(3, 3, " ", ConsoleColor.White);
+                    }
+                    else if (pressedkey.Key == ConsoleKey.UpArrow)
+                    {
+                        objCursor.y = 7;
+                        PrintPosition(3, 3, " ", ConsoleColor.White);
+
+                    }
+                }
+                else if(objCursor.y == 5) // Option medium
+                {
+                    if(pressedkey.Key == ConsoleKey.DownArrow)
+                    {
+                        objCursor.y = 7;
+                        PrintPosition(3, 5, " ", ConsoleColor.White);
+                    }
+                    else if(pressedkey.Key == ConsoleKey.UpArrow)
+                    {
+                        objCursor.y = 3;
+                        PrintPosition(3, 5, " ", ConsoleColor.White);
+                    }
+                }
+                else if(objCursor.y == 7) // Option Hard
+                {
+                    if(pressedkey.Key == ConsoleKey.DownArrow)
+                    {
+                        objCursor.y = 3;
+                        PrintPosition(3, 7, " ", ConsoleColor.White);
+                    }
+                    else if(pressedkey.Key == ConsoleKey.UpArrow)
+                    {
+                        objCursor.y = 5;
+                        PrintPosition(3, 7, " ", ConsoleColor.White);
+                    }
+                }
+                if(pressedkey.Key == ConsoleKey.Enter && objCursor.y == 3)
+                {
+                    return 1;
+                }
+                else if(pressedkey.Key == ConsoleKey.Enter && objCursor.y == 5)
+                {
+                    return 2;
+                }
+                else if(pressedkey.Key == ConsoleKey.Enter && objCursor.y == 7)
+                {
+                    return 3;
+                }
+                
+            }
+            PrintPosition(objCursor.x, objCursor.y, objCursor.text, objCursor.color);
+            
+        }
+    }   
 
     /// <summary>
     /// Method to count the mines left to be marked. That will count the flagged cells.
@@ -348,18 +443,25 @@ class CerberusMinesweeper
 
     static void Main()
     {
+        //Console.BufferHeight = Console.WindowHeight = 30; // -- To diable vertical scrollbar  
+        //Console.BufferWidth = Console.WindowWidth = 70;   // To disable horizontal scrollbar . Max value is your screen resolution , so keep in mind.
+        Console.Title = "Misesweeper";  // Title of console's window
+        int dificulty = PrintDifficultyMenu();
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.White;
+        
     //while (gameInProgress)
     //{
     //// new game start
-    
+        
         //bool gameInProgress = true;
         //int dificulty = PrintDifficultyMenu();
-        string[,] board = CreateBoard(1);
-        string[,] visibilityBoard = CreateBoard(1);
-        FillWithRandomMines(board, 1);
+        string[,] board = CreateBoard(dificulty);
+        string[,] visibilityBoard = CreateBoard(dificulty);
+        FillWithRandomMines(board, dificulty);
         CalculateDigitsArroundMines(board);
         //Console.WriteLine("Random board:");
-        //DebugPrintBoard(board);
+        DebugPrintBoard(board);
 
         while (true)
         {
