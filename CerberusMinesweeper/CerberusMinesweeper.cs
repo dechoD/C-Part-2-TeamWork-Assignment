@@ -125,10 +125,10 @@ class CerberusMinesweeper
 
     /// <summary>
     /// Method to count the mines left to be marked. That will count the flagged cells.
-    /// One of the parameters will not be needed eventually.
+    /// flagged mines are marked "2" <-- note its a string
     /// </summary>
     /// <param name="board"> The board with the mines and cell values </param>
-    /// <param name="visibilityArray"> The array with the visibility </param>
+    /// <param name="visibilityArray"> The array with the visibility , flagged mines are "2" </param>
     /// <returns> the count to be printed by PrintMinesLeft method </returns>
     static int CountMinesLeft(string[,] board, string[,] visibilityArray)
     {
