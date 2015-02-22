@@ -193,6 +193,13 @@ class CerberusMinesweeper
                     Console.ResetColor();
                     continue;
                 }
+                if (visibilityArray[row, col] == "1")
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.Write(minesArray[row, col]);
+                    Console.ResetColor();
+                    continue;
+                }
                 // If invisible
                 else if (visibilityArray[row, col] == "0")
                 {
@@ -497,18 +504,22 @@ class CerberusMinesweeper
                     {
                         if (cursorCol > 0) cursorCol -= 1;
                     }
+
                     if (userInput.Key == ConsoleKey.RightArrow)
                     {
                         if (cursorCol < board.GetUpperBound(1)) cursorCol += 1;
                     }
+
                     if (userInput.Key == ConsoleKey.UpArrow)
                     {
                         if (cursorRow > 0) cursorRow -= 1;
                     }
+
                     if (userInput.Key == ConsoleKey.DownArrow)
                     {
                         if (cursorRow < board.GetUpperBound(0)) cursorRow += 1;
                     }
+
                     if (userInput.Key == ConsoleKey.A)
                     {
                         if (visibilityBoard[cursorRow, cursorCol] == "0")
@@ -518,8 +529,19 @@ class CerberusMinesweeper
                         else if (visibilityBoard[cursorRow, cursorCol] == "2")
                         {
                             visibilityBoard[cursorRow, cursorCol] = "0";
+                        }                        
+                    }
+
+                    if (userInput.Key == ConsoleKey.S)
+                    {
+                        if (visibilityBoard[cursorRow, cursorCol] == "0")
+                        {
+                            visibilityBoard[cursorRow, cursorCol] = "1";
+                            if (board[cursorRow, cursorCol] == "*")
+                            {
+                                break;
+                            }
                         }
-                        
                     }
                 }
 
