@@ -78,7 +78,7 @@ class CerberusMinesweeper
     /// 2 - marked as mine
     /// 3 - cursor position
     /// </param>
-    static void PrintBoard(string[,] minesArray, string[,] visibilityArray)
+    static void PrintBoard(string[,] minesArray, string[,] visibilityArray, int curRow, int curCol)
     {
         Console.SetCursorPosition(0, 1);
 
@@ -86,37 +86,48 @@ class CerberusMinesweeper
         {
             for (int col = 0; col < minesArray.GetLength(1); col++)
             {
-                if (row % 2 == 0)
+                // If its the cursor
+                if (row == curRow && col == curCol)
                 {
-                    if (col % 2 == 0)
-                    {
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.Write(" ");
-                        Console.ResetColor();
-                        continue;
-                    }
-                    else
-                    {
-                        Console.BackgroundColor = ConsoleColor.Gray;
-                        Console.Write(" ");
-                        Console.ResetColor();
-                    }                    
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.Write(" ");
+                    Console.ResetColor();
+                    continue;
                 }
-                else
+                // If invisible
+                else if (visibilityArray[row, col] == "0")
                 {
-                    if (col % 2 == 0)
+                    if (row % 2 == 0)
                     {
-                        Console.BackgroundColor = ConsoleColor.Gray;
-                        Console.Write(" ");
-                        Console.ResetColor();                        
+                        if (col % 2 == 0)
+                        {
+                            Console.BackgroundColor = ConsoleColor.White;
+                            Console.Write(" ");
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = ConsoleColor.Gray;
+                            Console.Write(" ");
+                            Console.ResetColor();
+                        }
                     }
                     else
                     {
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.Write(" ");
-                        Console.ResetColor();
-                    }                    
-                }                
+                        if (col % 2 == 0)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Gray;
+                            Console.Write(" ");
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = ConsoleColor.White;
+                            Console.Write(" ");
+                            Console.ResetColor();
+                        }
+                    }       
+                }                         
             }
 
             Console.WriteLine();
@@ -357,17 +368,45 @@ class CerberusMinesweeper
         //bool gameInProgress = true;
         //int dificulty = PrintDifficultyMenu();
         string[,] board = CreateBoard(3);
-        string[,] visibilityBoard = CreateBoard(1);
-        FillWithRandomMines(board, 1);
+        string[,] visibilityBoard = CreateBoard(3);
+        int cursorRow = board.GetLength(0) / 2;
+        int cursorCol = board.GetLength(1) / 2;
+
+        FillWithRandomMines(board, 3);
         CalculateDigitsArroundMines(board);
         //Console.WriteLine("Random board:");
         //DebugPrintBoard(board);
 
         while (true)
         {
-            PrintBoard(board, visibilityBoard);
+            if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo userInput = Console.ReadKey(true);
+                    while (Console.KeyAvailable)
+                    {
+                        Console.ReadKey(true);
+                    }
+                    if (userInput.Key == ConsoleKey.LeftArrow)
+                    {
+                        if (cursorCol > 0) cursorCol -= 1;
+                    }
+                    if (userInput.Key == ConsoleKey.RightArrow)
+                    {
+                        if (cursorCol < board.GetUpperBound(1)) cursorCol += 1;
+                    }
+                    if (userInput.Key == ConsoleKey.UpArrow)
+                    {
+                        if (cursorRow > 0) cursorRow -= 1;
+                    }
+                    if (userInput.Key == ConsoleKey.DownArrow)
+                    {
+                        if (cursorRow < board.GetUpperBound(0)) cursorRow += 1;
+                    }
+                }
+
+            PrintBoard(board, visibilityBoard, cursorRow, cursorCol);
             //PrintMinesLeft();
-            PrintTimeElapsed();
+            //PrintTimeElapsed(); <-- currenntly stops the cursor from moving, have to incestigate why
 
             // catch movement and clicks
 
