@@ -473,6 +473,8 @@ class CerberusMinesweeper
         string[,] visibilityBoard = CreateBoard(dificulty);
         FillWithRandomMines(board, dificulty);
         CalculateDigitsArroundMines(board);
+        int cursorRow = board.GetLength(0) / 2;
+        int cursorCol = board.GetLength(1) / 2;
         //Console.WriteLine("Random board:");
         //DebugPrintBoard(board);
 
