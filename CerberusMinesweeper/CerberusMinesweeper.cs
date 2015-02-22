@@ -2,6 +2,7 @@
 using System.Threading;
 
 
+
 class CerberusMinesweeper
 {    
 
@@ -598,6 +599,8 @@ class CerberusMinesweeper
     /// <param name="scoreFilePath"> path to the file keeping the high scores </param>
     static void WriteHighScore(string scoreFilePath)
     {
+        /// Vely will work here....
+        
         // TODO: Implement high scores print on the console with current highscore in different color
     }
 
@@ -737,5 +740,7 @@ class CerberusMinesweeper
         //WriteHighScore();
         //AskForNewGame();
         //}
+
+
     }
 }
