@@ -59,11 +59,11 @@ class CerberusMinesweeper
         //Pavleta worked here...        
         while (true)
         {
-            Console.SetCursorPosition(1, 11); // just for testing
+            Console.SetCursorPosition(1, 0); // just for testing
             TimeSpan difference = DateTime.Now - start;
             Thread.Sleep(200);
             int seconds = (int)difference.TotalSeconds;
-            Console.Write("Time elapsed: {0}", seconds);
+            Console.Write("{0} sec", seconds);
         }
     }
 
@@ -80,6 +80,8 @@ class CerberusMinesweeper
     /// </param>
     static void PrintBoard(string[,] minesArray, string[,] visibilityArray)
     {
+        Console.SetCursorPosition(0, 1);
+
         for (int row = 0; row < minesArray.GetLength(0); row++)
         {
             for (int col = 0; col < minesArray.GetLength(1); col++)
@@ -354,7 +356,7 @@ class CerberusMinesweeper
     
         //bool gameInProgress = true;
         //int dificulty = PrintDifficultyMenu();
-        string[,] board = CreateBoard(1);
+        string[,] board = CreateBoard(3);
         string[,] visibilityBoard = CreateBoard(1);
         FillWithRandomMines(board, 1);
         CalculateDigitsArroundMines(board);
