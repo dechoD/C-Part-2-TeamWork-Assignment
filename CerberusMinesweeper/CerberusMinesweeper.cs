@@ -78,10 +78,47 @@ class CerberusMinesweeper
     /// 2 - marked as mine
     /// 3 - cursor position
     /// </param>
-    static void PrintBoard(string[,] minesArray, int[,] visibilityArray)
+    static void PrintBoard(string[,] minesArray, string[,] visibilityArray)
     {
-        // Kiril will work here... 
-        // TODO: Implement drawing of the board     
+        for (int row = 0; row < minesArray.GetLength(0); row++)
+        {
+            for (int col = 0; col < minesArray.GetLength(1); col++)
+            {
+                if (row % 2 == 0)
+                {
+                    if (col % 2 == 0)
+                    {
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.Write(" ");
+                        Console.ResetColor();
+                        continue;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = ConsoleColor.Gray;
+                        Console.Write(" ");
+                        Console.ResetColor();
+                    }                    
+                }
+                else
+                {
+                    if (col % 2 == 0)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Gray;
+                        Console.Write(" ");
+                        Console.ResetColor();                        
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.Write(" ");
+                        Console.ResetColor();
+                    }                    
+                }                
+            }
+
+            Console.WriteLine();
+        }    
     }
 
     /// <summary>
@@ -321,12 +358,12 @@ class CerberusMinesweeper
         string[,] visibilityBoard = CreateBoard(1);
         FillWithRandomMines(board, 1);
         CalculateDigitsArroundMines(board);
-        Console.WriteLine("Random board:");
-        DebugPrintBoard(board);
+        //Console.WriteLine("Random board:");
+        //DebugPrintBoard(board);
 
         while (true)
         {
-            //PrintBoard();
+            PrintBoard(board, visibilityBoard);
             //PrintMinesLeft();
             PrintTimeElapsed();
 
