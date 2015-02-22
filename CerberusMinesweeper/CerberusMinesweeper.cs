@@ -348,7 +348,7 @@ class CerberusMinesweeper
                 if (visibilityArray[row, col] == "2")
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
-                    Console.Write(" ");
+                    Console.Write((char)16);
                     Console.ResetColor();
                     continue;
                 }
@@ -662,7 +662,7 @@ class CerberusMinesweeper
         int cursorRow = board.GetLength(0) / 2;
         int cursorCol = board.GetLength(1) / 2;
         //Console.WriteLine("Random board:");
-        // DebugPrintBoard(board);
+        //DebugPrintBoard(board);
         DateTime start = DateTime.Now;
 
         while (true)
