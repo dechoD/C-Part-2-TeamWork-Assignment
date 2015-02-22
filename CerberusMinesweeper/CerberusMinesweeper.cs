@@ -265,6 +265,40 @@ class CerberusMinesweeper
     }
 
     /// <summary>
+    /// Helper method used by PrintBoard returning the color of the digit revealed
+    /// </summary>
+    /// <param name="minesArray"> play board </param>
+    /// <param name="curRow"> row of the number </param>
+    /// <param name="curCol"> column of the number </param>
+    /// <returns> color in which the number will be printed </returns>
+    static ConsoleColor GetDigitColor(string[,] minesArray, int curRow, int curCol)
+    {
+        int digit = int.Parse(minesArray[curRow, curCol]);
+
+        switch (digit)
+        {
+            case 1:
+                return ConsoleColor.Blue;
+            case 2:
+                return ConsoleColor.DarkGreen;
+            case 3:
+                return ConsoleColor.Red;
+            case 4:
+                return ConsoleColor.DarkBlue;
+            case 5:
+                return ConsoleColor.DarkRed;
+            case 6:
+                return ConsoleColor.DarkCyan;
+            case 7:
+                return ConsoleColor.Black;
+            case 8:
+                return ConsoleColor.DarkGray;
+            default:
+                return ConsoleColor.Blue;
+        }
+    }
+
+    /// <summary>
     /// Draws the board
     /// </summary>
     /// <param name="minesArray"> the array with the mines and numbers</param>
@@ -286,9 +320,28 @@ class CerberusMinesweeper
                 if (row == curRow && col == curCol)
                 {
                     Console.BackgroundColor = ConsoleColor.Blue;
-                    Console.Write(" ");
-                    Console.ResetColor();
-                    continue;
+
+                    if (visibilityArray[row, col] == "0" || visibilityArray[row, col] == "2")
+                    {
+                        Console.Write(" ");
+                        Console.ResetColor();
+                        continue;
+                    }
+                    else
+                    {
+                        if (minesArray[row, col] == "0")
+                        {
+                            Console.Write(" ");
+                            Console.ResetColor();
+                            continue;
+                        }
+                        else
+                        {
+                            Console.Write(minesArray[row, col]);
+                            Console.ResetColor();
+                            continue;
+                        }
+                    }                    
                 }
 
                 // If marked as mine
@@ -303,7 +356,8 @@ class CerberusMinesweeper
                 // If visible
                 if (visibilityArray[row, col] == "1")
                 {
-                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = GetDigitColor(minesArray, row, col);
 
                     if (minesArray[row, col] != "0")
                     {
@@ -311,7 +365,7 @@ class CerberusMinesweeper
                         Console.ResetColor();
                         continue;
                     }
-                    else if (true)
+                    else
                     {
                         Console.Write(" ");
                         Console.ResetColor();
@@ -327,7 +381,7 @@ class CerberusMinesweeper
                     {
                         if (col % 2 == 0)
                         {
-                            Console.BackgroundColor = ConsoleColor.White;
+                            Console.BackgroundColor = ConsoleColor.DarkGray;
                             Console.Write(" ");
                             Console.ResetColor();
                         }
@@ -348,7 +402,7 @@ class CerberusMinesweeper
                         }
                         else
                         {
-                            Console.BackgroundColor = ConsoleColor.White;
+                            Console.BackgroundColor = ConsoleColor.DarkGray;
                             Console.Write(" ");
                             Console.ResetColor();
                         }
@@ -608,7 +662,7 @@ class CerberusMinesweeper
         int cursorRow = board.GetLength(0) / 2;
         int cursorCol = board.GetLength(1) / 2;
         //Console.WriteLine("Random board:");
-        DebugPrintBoard(board);
+        // DebugPrintBoard(board);
         DateTime start = DateTime.Now;
 
         while (true)
@@ -675,8 +729,7 @@ class CerberusMinesweeper
             //PrintMinesLeft();
             PrintTimeElapsed(start);
             PrintMessageOnConsole("Arrows to move, \"A\" to mark mine, \"S\" to open cell", 20, 0); // temporary 
-            // catch movement and clicks
-
+            
             // catch game end and exit this loop
         }
 
