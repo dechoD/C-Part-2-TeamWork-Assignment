@@ -159,6 +159,53 @@ class CerberusMinesweeper
        
     }
 
+
+    static void OpenZeroesArea(string[,] board, string[,] visibilityArray, int row, int col, bool[,] visited)
+    {
+        int maxRow = board.GetUpperBound(0);
+        int maxCol = board.GetUpperBound(1);
+        
+        visited[row, col] = true;
+
+        if (row - 1 >= 0)
+        {
+            visibilityArray[row - 1, col] = "1";
+            if (board[row - 1, col] == "0" && !visited[row - 1, col])
+            {
+                OpenZeroesArea(board, visibilityArray, row - 1, col, visited);
+            }
+        }
+
+        if (row + 1 <= maxRow)
+        {
+            visibilityArray[row + 1, col] = "1";
+            if (board[row + 1, col] == "0" && !visited[row + 1, col])
+            {
+                OpenZeroesArea(board, visibilityArray, row + 1, col, visited);
+            }
+        }
+
+        if (col + 1 <= maxCol)
+        {
+            visibilityArray[row, col + 1] = "1";
+            if (board[row, col + 1] == "0" && !visited[row, col + 1])
+            {
+                OpenZeroesArea(board, visibilityArray, row, col + 1, visited);
+            }
+        }
+
+        if (col - 1 >= 0)
+        {
+            visibilityArray[row, col - 1] = "1";
+            if (board[row, col - 1] == "0" && !visited[row, col - 1])
+            {
+                OpenZeroesArea(board, visibilityArray, row, col - 1, visited);
+            }
+        }
+
+        return;
+    }
+
     /// <summary>
     /// Draws the board
     /// </summary>
@@ -185,6 +232,7 @@ class CerberusMinesweeper
                     Console.ResetColor();
                     continue;
                 }
+
                 // If marked as mine
                 if (visibilityArray[row, col] == "2")
                 {
@@ -193,6 +241,8 @@ class CerberusMinesweeper
                     Console.ResetColor();
                     continue;
                 }
+
+                // If visible
                 if (visibilityArray[row, col] == "1")
                 {
                     Console.BackgroundColor = ConsoleColor.DarkGray;
@@ -200,6 +250,7 @@ class CerberusMinesweeper
                     Console.ResetColor();
                     continue;
                 }
+
                 // If invisible
                 else if (visibilityArray[row, col] == "0")
                 {
@@ -488,7 +539,7 @@ class CerberusMinesweeper
         int cursorRow = board.GetLength(0) / 2;
         int cursorCol = board.GetLength(1) / 2;
         //Console.WriteLine("Random board:");
-        //DebugPrintBoard(board);
+        DebugPrintBoard(board);
         DateTime start = DateTime.Now;
 
         while (true)
@@ -537,9 +588,15 @@ class CerberusMinesweeper
                         if (visibilityBoard[cursorRow, cursorCol] == "0")
                         {
                             visibilityBoard[cursorRow, cursorCol] = "1";
+
                             if (board[cursorRow, cursorCol] == "*")
                             {
-                                break;
+                                break;  // <--- end game logic to be implemented 
+                            }
+                            if (board[cursorRow, cursorCol] == "0")
+                            {
+                                bool[,] visited = new bool[board.GetLength(0), board.GetLength(1)];
+                                OpenZeroesArea(board, visibilityBoard, cursorRow, cursorCol, visited);
                             }
                         }
                     }
@@ -548,7 +605,7 @@ class CerberusMinesweeper
             PrintBoard(board, visibilityBoard, cursorRow, cursorCol);
             //PrintMinesLeft();
             PrintTimeElapsed(start);
-
+            PrintMessageOnConsole("Arrows to move, \"A\" to mark mine, \"S\" to open cell", 15, 0); // temporary 
             // catch movement and clicks
 
             // catch game end and exit this loop
