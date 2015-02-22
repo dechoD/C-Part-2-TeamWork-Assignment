@@ -3,8 +3,8 @@ using System.Threading;
 
 
 class CerberusMinesweeper
-{
-    static DateTime start = DateTime.Now;
+{    
+
     /// <summary>
     /// Prints a message on a given position
     /// </summary>
@@ -149,17 +149,14 @@ class CerberusMinesweeper
     /// Keeping count of the seconds after the game has started    
     /// </summary>
     /// <param name="start"> the time the game started </param>
-    static void PrintTimeElapsed()
+    static void PrintTimeElapsed(DateTime start)
     {
-        //Pavleta worked here...        
-        while (true)
-        {
-            Console.SetCursorPosition(1, 0); // just for testing
-            TimeSpan difference = DateTime.Now - start;
-            Thread.Sleep(200);
-            int seconds = (int)difference.TotalSeconds;
-            Console.Write("{0} sec", seconds);
-        }
+        //Pavleta worked here...         
+        Console.SetCursorPosition(1, 0);
+        TimeSpan difference = DateTime.Now - start;
+        int seconds = (int)difference.TotalSeconds;
+        Console.Write("{0} sec", seconds);
+       
     }
 
     /// <summary>
@@ -477,6 +474,7 @@ class CerberusMinesweeper
         int cursorCol = board.GetLength(1) / 2;
         //Console.WriteLine("Random board:");
         //DebugPrintBoard(board);
+        DateTime start = DateTime.Now;
 
         while (true)
         {
@@ -507,7 +505,7 @@ class CerberusMinesweeper
 
             PrintBoard(board, visibilityBoard, cursorRow, cursorCol);
             //PrintMinesLeft();
-            //PrintTimeElapsed(); <-- currenntly stops the cursor from moving, have to incestigate why
+            PrintTimeElapsed(start);
 
             // catch movement and clicks
 
@@ -516,7 +514,7 @@ class CerberusMinesweeper
 
         //WriteEndGameMessage();
         //WriteHighScore();
-        AskForNewGame();
+        //AskForNewGame();
         //}
     }
 }
