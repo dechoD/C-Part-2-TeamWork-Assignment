@@ -609,8 +609,8 @@ class CerberusMinesweeper
     {
         // Niko will work here...
         // TODO: Implement message print for end of the game (win and lose)
-
         Console.Clear();
+        Console.BackgroundColor = ConsoleColor.Gray;
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WindowWidth = 135;
         Console.WriteLine(@"End Game
@@ -630,30 +630,18 @@ class CerberusMinesweeper
 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
         Console.ForegroundColor = ConsoleColor.White;
 
+
     }
 
     /// <summary>
     /// Write high scores after the game has finished
     /// </summary>
     /// <param name="scoreFilePath"> path to the file keeping the high scores </param>
-    static void WriteHighScore(string scoreFilePath)
-    {
-        /// Vely will work here....
-
-        Console.Write("Please enter your name fot the top scoreboard: ");
-        string name = Console.ReadLine();
-
-
-        //StreamReader reader = new StreamReader(@"../../Highscores.txt");
-        //string[] rawResults = reader.ReadToEnd().Split(new string[] { "\n", string.Empty }, StringSplitOptions.RemoveEmptyEntries);
-
-
-        // TODO: Implement high scores print on the console with current highscore in different color
-    }
-
 
     public static void WriteHighScore(int currentHighScore, int currentScore)
     {
+        ///Vely worked here
+        // TODO: Implement high scores print on the console with current highscore in different color
         Console.Write("Please enter your name for the top scoreboard: ");
         string name = Console.ReadLine();
 
