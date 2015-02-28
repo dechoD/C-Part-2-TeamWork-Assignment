@@ -1,1 +1,3 @@
-user: dfds score: 4
+user: {0} dificulty: easy score: 999999
+user: {0} dificulty: medium score: 999999
+user: {0} dificulty: hard score: 999999

@@ -638,21 +638,44 @@ class CerberusMinesweeper
     /// </summary>
     /// <param name="scoreFilePath"> path to the file keeping the high scores </param>
 
-    public static void WriteHighScore(int currentHighScore, int currentScore)
+    public static void WriteHighScore(int currentHighScore, int currentScore, int dificulty)
     {
         ///Vely worked here
         // TODO: Implement high scores print on the console with current highscore in different color
         Console.Write("Please enter your name for the top scoreboard: ");
         string name = Console.ReadLine();
 
-        if (currentScore > currentHighScore)
+         StreamReader readerToAr = new StreamReader("..\\..\\Highscores.txt");
+         string[] lines = readerToAr.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+         readerToAr.Close();
+
+        string dificultyStr = "";
+        if (dificulty == 1)
         {
+            dificultyStr = "easy";
+        }
+        else if (dificulty == 2)
+        {
+            dificultyStr = "medium";
+        }
+        else if (dificulty == 3)
+        {
+            dificultyStr = "hard";
+        }
+
+        if (currentScore < currentHighScore)
+        {
+            string writeHighScore = String.Format("user: {0} dificulty: {1} score: {2}", name, dificultyStr, currentScore);
+            lines[dificulty-1] = writeHighScore;
             File.Delete("..\\..\\Highscores.txt");
-            string writeHighScore = String.Format("user: {0} score: {1}", name, currentScore);
-            var writer = new StreamWriter("..\\..\\Highscores.txt", true);
+            StreamWriter writer = new StreamWriter("..\\..\\Highscores.txt", true);
             using (writer)
             {
-                writer.WriteLine(writeHighScore, 0, writeHighScore.Length);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    writer.WriteLine(lines[i]);
+                }
+
             }
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("You have the highest score!\n\rYour score is: {0}", currentScore);
@@ -804,19 +827,19 @@ class CerberusMinesweeper
             // catch game end and exit this loop
         }
 
-
+        ////checking whether the current highscore that is saved in the file and then calls WriteHighScore(currentHighScore, currentScore, dificulty);
         DateTime end = DateTime.Now;
         Regex ex = new Regex("score: [0-9].+"); ///if issue with this the below listed match remove the dot "[0-9]+"
         int currentScore = EndTimeElapsed(start, end);
         int currentHighScore = 0;
-        StreamReader reader = new StreamReader("..\\..\\Highscores.txt");
-        string line = reader.ReadToEnd();
-        Match match = ex.Match(line);
+        StreamReader readerToAr = new StreamReader("..\\..\\Highscores.txt");
+        string[] lines = readerToAr.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+        Match match = ex.Match(lines[dificulty]);
         currentHighScore = int.Parse(match.ToString()
                                     .Substring(7));
-        reader.Close();
+        readerToAr.Close();
+        WriteHighScore(currentHighScore, currentScore, dificulty);
 
-        WriteHighScore(currentHighScore, currentScore);
         AskForNewGame();
         WriteEndGameMessage();
         Console.ReadKey();
