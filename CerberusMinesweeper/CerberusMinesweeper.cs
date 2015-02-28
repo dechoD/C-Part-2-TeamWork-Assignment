@@ -657,7 +657,7 @@ class CerberusMinesweeper
     {
         // TODO: Implement message print for end of the game (win and lose)
         Console.Clear();
-        Console.BackgroundColor = ConsoleColor.Gray;
+        //Console.BackgroundColor = ConsoleColor.DarkGray;
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WindowWidth = 135;
         Console.WriteLine(@"End Game
@@ -740,12 +740,16 @@ class CerberusMinesweeper
     /// <summary>
     /// Ask the user if he wants new game
     /// </summary>
-    static void AskForNewGame()
+    static void AskForNewGame(bool win)
     {
         // Implement logic for new game question to user and exit if negative
         // Ivan worked here
-
-        Console.WriteLine("End of the game!");
+        if (!win)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("***GAME OVER***");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
         Console.WriteLine();
         Console.WriteLine("Press 1 for new game");
         Console.WriteLine("Press 2 for exit");
@@ -806,6 +810,8 @@ class CerberusMinesweeper
         //Console.WriteLine("Random board:");
         //DebugPrintBoard(board);
         DateTime start = DateTime.Now;
+
+        bool win = false;
 
         while (true)
         {
@@ -874,6 +880,7 @@ class CerberusMinesweeper
             {
                 if (CheckIfGameWon(board, visibilityBoard, 0) == 71)
                 {
+                    win = true;
                     break;
                 }
             }
@@ -881,6 +888,8 @@ class CerberusMinesweeper
             {
                 if (CheckIfGameWon(board, visibilityBoard, 0) == 216)
                 {
+                    win = true;
+
                     break;
                 }
             }
@@ -888,6 +897,8 @@ class CerberusMinesweeper
             {
                 if (CheckIfGameWon(board, visibilityBoard, 0) == 381)
                 {
+                    win = true;
+
                     break;
                 }
             }
@@ -901,19 +912,26 @@ class CerberusMinesweeper
         }
 
         ////checking whether the current highscore that is saved in the file and then calls WriteHighScore(currentHighScore, currentScore, dificulty);
-        DateTime end = DateTime.Now;
-        Regex ex = new Regex("score: [0-9].+"); ///if issue with this the below listed match remove the dot "[0-9]+"
-        int currentScore = EndTimeElapsed(start, end);
-        int currentHighScore = 0;
-        StreamReader readerToAr = new StreamReader("..\\..\\Highscores.txt");
-        string[] lines = readerToAr.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-        Match match = ex.Match(lines[dificulty]);
-        currentHighScore = int.Parse(match.ToString()
-                                    .Substring(7));
-        readerToAr.Close();
-        WriteHighScore(currentHighScore, currentScore, dificulty);
+        if (win)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("YOU WIN");
+            Console.ForegroundColor = ConsoleColor.White;
 
-        AskForNewGame();
+            DateTime end = DateTime.Now;
+            Regex ex = new Regex("score: [0-9]+"); ///if issue with this the below listed match remove the dot "[0-9]+"
+            int currentScore = EndTimeElapsed(start, end);
+            int currentHighScore = 0;
+            StreamReader readerToAr = new StreamReader("..\\..\\Highscores.txt");
+            string[] lines = readerToAr.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            Match match = ex.Match(lines[dificulty - 1]);
+            currentHighScore = int.Parse(match.ToString()
+                                        .Substring(7));
+            readerToAr.Close();
+            WriteHighScore(currentHighScore, currentScore, dificulty);
+        }
+
+        AskForNewGame(win);
         WriteEndGameMessage();
         Console.ReadKey();
     }
