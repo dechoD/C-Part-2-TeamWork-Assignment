@@ -136,19 +136,48 @@ class CerberusMinesweeper
     /// <param name="board"> The board with the mines and cell values </param>
     /// <param name="visibilityArray"> The array with the visibility , flagged mines are "2" </param>
     /// <returns> the count to be printed by PrintMinesLeft method </returns>
-    static int CountMinesLeft(string[,] board, string[,] visibilityArray)
+    static int CountMinesLeft(string[,] board, string[,] visibilityArray, int count)
     {
+        //Niko worked here
         // TODO: Implement a method to calculate the mines left to be marked
-        return 100;
+        if (visibilityArray.Length == 81)
+        {
+            count = 10;
+        }
+        else if (visibilityArray.Length == 256)
+        {
+            count = 40;
+        }
+        else if (visibilityArray.Length == 480)
+        {
+            count = 99;
+        }
+
+        for (int i = 0; i < board.GetLength(0); i++)
+        {
+            for (int p = 0; p < board.GetLength(1); p++)
+            {
+
+                if (visibilityArray[i, p] == "2")
+                {
+                    count--;
+                }
+
+            }
+        }
+        return count;
     }
 
     /// <summary>
     /// Prints a mines left count
     /// </summary>
     /// <param name="array"> The array with the mines and numbers </param>
-    static void PrintMinesLeft(string[,] array)
+    static void PrintMinesLeft(string[,] board, string[,] visibilityArray)
     {
+        //Niko worked here
         // TODO: Implement method to print the mines left somewhere using PrintMessageOnConsole Method
+        Console.SetCursorPosition(7, 0);
+        Console.WriteLine("||  Mines left to be marked: {0}", CountMinesLeft(board, visibilityArray, 0) + " ");
     }
 
     /// <summary>
@@ -797,7 +826,7 @@ class CerberusMinesweeper
             }
 
             PrintBoard(board, visibilityBoard, cursorRow, cursorCol);
-            //PrintMinesLeft();
+            PrintMinesLeft(board, visibilityBoard);
             PrintTimeElapsed(start);
             PrintMessageOnConsole("Arrows to move, \"A\" to mark mine, \"S\" to open cell", 20, 0); // temporary 
 
