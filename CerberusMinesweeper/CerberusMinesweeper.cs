@@ -177,7 +177,7 @@ class CerberusMinesweeper
         //Niko worked here
         // TODO: Implement method to print the mines left somewhere using PrintMessageOnConsole Method
         Console.SetCursorPosition(7, 0);
-        Console.WriteLine("||  Mines left to be marked: {0}", CountMinesLeft(board, visibilityArray, 0) + " ");
+        Console.WriteLine("   ||  Mines left to be marked: {0}", CountMinesLeft(board, visibilityArray, 0) + " ");
     }
 
     /// <summary>
