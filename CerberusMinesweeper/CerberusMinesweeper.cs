@@ -642,6 +642,7 @@ class CerberusMinesweeper
     {
         ///Vely worked here
         // TODO: Implement high scores print on the console with current highscore in different color
+
         Console.Write("Please enter your name for the top scoreboard: ");
         string name = Console.ReadLine();
 
