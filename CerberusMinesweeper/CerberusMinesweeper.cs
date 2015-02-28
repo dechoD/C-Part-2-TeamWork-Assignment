@@ -1,11 +1,16 @@
-﻿using System;
+﻿﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 
 
 class CerberusMinesweeper
-{    
-
+{
     /// <summary>
     /// Prints a message on a given position
     /// </summary>
@@ -49,7 +54,7 @@ class CerberusMinesweeper
         objCursor.color = ConsoleColor.Green;
         objCursor.text = ">";
 
-        
+
         // Welcome to Minesweeper
         PrintPosition(Console.WindowWidth / 2 - 11, 0, " Welcome to Minesweeper ", ConsoleColor.White);
         PrintPosition(5, 3, "Easy (9x9)", ConsoleColor.White);
@@ -65,9 +70,9 @@ class CerberusMinesweeper
                     Console.ReadKey(true);
 
                 }
-                if(objCursor.y == 3)  // Option easy
+                if (objCursor.y == 3)  // Option easy
                 {
-                    if(pressedkey.Key == ConsoleKey.DownArrow)
+                    if (pressedkey.Key == ConsoleKey.DownArrow)
                     {
                         objCursor.y = 5;
                         PrintPosition(3, 3, " ", ConsoleColor.White);
@@ -79,50 +84,50 @@ class CerberusMinesweeper
 
                     }
                 }
-                else if(objCursor.y == 5) // Option medium
+                else if (objCursor.y == 5) // Option medium
                 {
-                    if(pressedkey.Key == ConsoleKey.DownArrow)
+                    if (pressedkey.Key == ConsoleKey.DownArrow)
                     {
                         objCursor.y = 7;
                         PrintPosition(3, 5, " ", ConsoleColor.White);
                     }
-                    else if(pressedkey.Key == ConsoleKey.UpArrow)
+                    else if (pressedkey.Key == ConsoleKey.UpArrow)
                     {
                         objCursor.y = 3;
                         PrintPosition(3, 5, " ", ConsoleColor.White);
                     }
                 }
-                else if(objCursor.y == 7) // Option Hard
+                else if (objCursor.y == 7) // Option Hard
                 {
-                    if(pressedkey.Key == ConsoleKey.DownArrow)
+                    if (pressedkey.Key == ConsoleKey.DownArrow)
                     {
                         objCursor.y = 3;
                         PrintPosition(3, 7, " ", ConsoleColor.White);
                     }
-                    else if(pressedkey.Key == ConsoleKey.UpArrow)
+                    else if (pressedkey.Key == ConsoleKey.UpArrow)
                     {
                         objCursor.y = 5;
                         PrintPosition(3, 7, " ", ConsoleColor.White);
                     }
                 }
-                if(pressedkey.Key == ConsoleKey.Enter && objCursor.y == 3)
+                if (pressedkey.Key == ConsoleKey.Enter && objCursor.y == 3)
                 {
                     return 1;
                 }
-                else if(pressedkey.Key == ConsoleKey.Enter && objCursor.y == 5)
+                else if (pressedkey.Key == ConsoleKey.Enter && objCursor.y == 5)
                 {
                     return 2;
                 }
-                else if(pressedkey.Key == ConsoleKey.Enter && objCursor.y == 7)
+                else if (pressedkey.Key == ConsoleKey.Enter && objCursor.y == 7)
                 {
                     return 3;
                 }
-                
+
             }
             PrintPosition(objCursor.x, objCursor.y, objCursor.text, objCursor.color);
-            
+
         }
-    }   
+    }
 
     /// <summary>
     /// Method to count the mines left to be marked. That will count the flagged cells.
@@ -150,16 +155,29 @@ class CerberusMinesweeper
     /// Keeping count of the seconds after the game has started    
     /// </summary>
     /// <param name="start"> the time the game started </param>
-    static void PrintTimeElapsed(DateTime start)
+    public static void PrintTimeElapsed(DateTime start)
     {
         //Pavleta worked here...         
         Console.SetCursorPosition(1, 0);
         TimeSpan difference = DateTime.Now - start;
         int seconds = (int)difference.TotalSeconds;
         Console.Write("{0} sec", seconds);
-       
+
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="start"></param>
+    /// <returns></returns>
+    public static int EndTimeElapsed(DateTime start, DateTime end)
+    {
+        //Vely worked here...   (for points saving)      
+        TimeSpan difference = end - start;
+        int seconds = (int)difference.TotalSeconds;
+        return seconds;
+
+    }
     /// <summary>
     /// Method used from OpenZeroesArea method to reveal all eight cells arround a cell
     /// </summary>
@@ -178,7 +196,7 @@ class CerberusMinesweeper
                 }
                 catch (IndexOutOfRangeException)
                 {
-                }                
+                }
             }
         }
     }
@@ -199,7 +217,7 @@ class CerberusMinesweeper
         visited[row, col] = true;
 
         if (row - 1 >= 0)
-        {            
+        {
             if (board[row - 1, col] == "0" && !visited[row - 1, col])
             {
                 OpenZeroesArea(board, visibilityArray, row - 1, col, visited);
@@ -342,7 +360,7 @@ class CerberusMinesweeper
                             Console.ResetColor();
                             continue;
                         }
-                    }                    
+                    }
                 }
 
                 // If marked as mine
@@ -372,7 +390,7 @@ class CerberusMinesweeper
                         Console.ResetColor();
                         continue;
                     }
-                    
+
                 }
 
                 // If invisible
@@ -407,12 +425,12 @@ class CerberusMinesweeper
                             Console.Write(" ");
                             Console.ResetColor();
                         }
-                    }       
-                }                         
+                    }
+                }
             }
 
             Console.WriteLine();
-        }    
+        }
     }
 
     /// <summary>
@@ -587,10 +605,31 @@ class CerberusMinesweeper
     /// Write end game message with high score alert if any
     /// </summary>
     /// <param name="scoreFilePath"> path to the file with the high scores </param>
-    static void WriteEndGameMessage(string scoreFilePath)
+    static void WriteEndGameMessage()
     {
         // Niko will work here...
         // TODO: Implement message print for end of the game (win and lose)
+
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WindowWidth = 135;
+        Console.WriteLine(@"End Game
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+─██████████████─██████████████─████████████████───██████████████───██████████████─████████████████───██████──██████─██████████████─
+─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░░░██───██░░░░░░░░░░██───██░░░░░░░░░░██─██░░░░░░░░░░░░██───██░░██──██░░██─██░░░░░░░░░░██─
+─██░░██████████─██░░██████████─██░░████████░░██───██░░██████░░██───██░░██████████─██░░████████░░██───██░░██──██░░██─██░░██████████─
+─██░░██─────────██░░██─────────██░░██────██░░██───██░░██──██░░██───██░░██─────────██░░██────██░░██───██░░██──██░░██─██░░██─────────
+─██░░██─────────██░░██████████─██░░████████░░██───██░░██████░░████─██░░██████████─██░░████████░░██───██░░██──██░░██─██░░██████████─
+─██░░██─────────██░░░░░░░░░░██─██░░░░░░░░░░░░██───██░░░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░░░██───██░░██──██░░██─██░░░░░░░░░░██─
+─██░░██─────────██░░██████████─██░░██████░░████───██░░████████░░██─██░░██████████─██░░██████░░████───██░░██──██░░██─██████████░░██─
+─██░░██─────────██░░██─────────██░░██──██░░██─────██░░██────██░░██─██░░██─────────██░░██──██░░██─────██░░██──██░░██─────────██░░██─
+─██░░██████████─██░░██████████─██░░██──██░░██████─██░░████████░░██─██░░██████████─██░░██──██░░██████─██░░██████░░██─██████████░░██─
+─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░██──██░░░░░░██─██░░░░░░░░░░░░██─██░░░░░░░░░░██─██░░██──██░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░██─
+─██████████████─██████████████─██████──██████████─████████████████─██████████████─██████──██████████─██████████████─██████████████─
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+        Console.ForegroundColor = ConsoleColor.White;
+
     }
 
     /// <summary>
@@ -600,8 +639,43 @@ class CerberusMinesweeper
     static void WriteHighScore(string scoreFilePath)
     {
         /// Vely will work here....
-        
+
+        Console.Write("Please enter your name fot the top scoreboard: ");
+        string name = Console.ReadLine();
+
+
+        //StreamReader reader = new StreamReader(@"../../Highscores.txt");
+        //string[] rawResults = reader.ReadToEnd().Split(new string[] { "\n", string.Empty }, StringSplitOptions.RemoveEmptyEntries);
+
+
         // TODO: Implement high scores print on the console with current highscore in different color
+    }
+
+
+    public static void WriteHighScore(int currentHighScore, int currentScore)
+    {
+        Console.Write("Please enter your name for the top scoreboard: ");
+        string name = Console.ReadLine();
+
+        if (currentScore > currentHighScore)
+        {
+            File.Delete("..\\..\\Highscores.txt");
+            string writeHighScore = String.Format("user: {0} score: {1}", name, currentScore);
+            var writer = new StreamWriter("..\\..\\Highscores.txt", true);
+            using (writer)
+            {
+                writer.WriteLine(writeHighScore, 0, writeHighScore.Length);
+            }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("You have the highest score!\n\rYour score is: {0}", currentScore);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Current highscore is: {0}\n\rYour score is: {1}", currentHighScore, currentScore);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
     }
 
     /// <summary>
@@ -617,27 +691,33 @@ class CerberusMinesweeper
         Console.WriteLine("Press 1 for new game");
         Console.WriteLine("Press 2 for exit");
         int choise = int.Parse(Console.ReadLine());
-        start:
-        switch(choise)
+
+        bool check = false;
+        do
         {
-            case 1:
-                {
-                    Console.Clear();
-                    Main();                     // returns to the main method if the user choose new game
+
+            switch (choise)
+            {
+                case 1:
+                    {
+                        check = true;
+                        Console.Clear();
+                        Main();
+                        // returns to the main method if the user choose new game
+                        break;
+                    }
+                case 2:
+                    {
+                        check = true;
+                        break;
+                    }
+                default:
+                    Console.Write("Please press 1 for new game or 2 for exit: ");
+                    choise = int.Parse(Console.ReadLine()); ///if we try with something other than digit it will boom
+                    check = false;
                     break;
-                }
-            case 2:
-                {
-                    Environment.Exit(0);        // closes the application if the user choose exit
-                    break;                        
-                }
-            default:
-                {
-                    Console.WriteLine("Error! Choose 1 or 2");          
-                    goto start;                                     // asks the user again to enter a choice if the previous wasn't correct
-                }
-        }
-        
+            }
+        } while (!check);
 
 
     }
@@ -656,8 +736,8 @@ class CerberusMinesweeper
         Console.Title = "Misesweeper";  // Title of console's window
         int dificulty = PrintDifficultyMenu();
         Console.Clear();
-        Console.ForegroundColor = ConsoleColor.White;    
-        
+        Console.ForegroundColor = ConsoleColor.White;
+
         string[,] board = CreateBoard(dificulty);
         string[,] visibilityBoard = CreateBoard(dificulty);
         FillWithRandomMines(board, dificulty);
@@ -671,76 +751,86 @@ class CerberusMinesweeper
         while (true)
         {
             if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo userInput = Console.ReadKey(true);
+                while (Console.KeyAvailable)
                 {
-                    ConsoleKeyInfo userInput = Console.ReadKey(true);
-                    while (Console.KeyAvailable)
-                    {
-                        Console.ReadKey(true);
-                    }
-                    if (userInput.Key == ConsoleKey.LeftArrow)
-                    {
-                        if (cursorCol > 0) cursorCol -= 1;
-                    }
+                    Console.ReadKey(true);
+                }
+                if (userInput.Key == ConsoleKey.LeftArrow)
+                {
+                    if (cursorCol > 0) cursorCol -= 1;
+                }
 
-                    if (userInput.Key == ConsoleKey.RightArrow)
-                    {
-                        if (cursorCol < board.GetUpperBound(1)) cursorCol += 1;
-                    }
+                if (userInput.Key == ConsoleKey.RightArrow)
+                {
+                    if (cursorCol < board.GetUpperBound(1)) cursorCol += 1;
+                }
 
-                    if (userInput.Key == ConsoleKey.UpArrow)
-                    {
-                        if (cursorRow > 0) cursorRow -= 1;
-                    }
+                if (userInput.Key == ConsoleKey.UpArrow)
+                {
+                    if (cursorRow > 0) cursorRow -= 1;
+                }
 
-                    if (userInput.Key == ConsoleKey.DownArrow)
-                    {
-                        if (cursorRow < board.GetUpperBound(0)) cursorRow += 1;
-                    }
+                if (userInput.Key == ConsoleKey.DownArrow)
+                {
+                    if (cursorRow < board.GetUpperBound(0)) cursorRow += 1;
+                }
 
-                    if (userInput.Key == ConsoleKey.A)
+                if (userInput.Key == ConsoleKey.A)
+                {
+                    if (visibilityBoard[cursorRow, cursorCol] == "0")
                     {
-                        if (visibilityBoard[cursorRow, cursorCol] == "0")
+                        visibilityBoard[cursorRow, cursorCol] = "2";
+                    }
+                    else if (visibilityBoard[cursorRow, cursorCol] == "2")
+                    {
+                        visibilityBoard[cursorRow, cursorCol] = "0";
+                    }
+                }
+
+                if (userInput.Key == ConsoleKey.S)
+                {
+                    if (visibilityBoard[cursorRow, cursorCol] == "0")
+                    {
+                        visibilityBoard[cursorRow, cursorCol] = "1";
+
+                        if (board[cursorRow, cursorCol] == "*")
                         {
-                            visibilityBoard[cursorRow, cursorCol] = "2";
+                            break;  // <--- end game logic to be implemented 
                         }
-                        else if (visibilityBoard[cursorRow, cursorCol] == "2")
+                        if (board[cursorRow, cursorCol] == "0")
                         {
-                            visibilityBoard[cursorRow, cursorCol] = "0";
-                        }                        
-                    }
-
-                    if (userInput.Key == ConsoleKey.S)
-                    {
-                        if (visibilityBoard[cursorRow, cursorCol] == "0")
-                        {
-                            visibilityBoard[cursorRow, cursorCol] = "1";
-
-                            if (board[cursorRow, cursorCol] == "*")
-                            {
-                                break;  // <--- end game logic to be implemented 
-                            }
-                            if (board[cursorRow, cursorCol] == "0")
-                            {
-                                bool[,] visited = new bool[board.GetLength(0), board.GetLength(1)];
-                                OpenZeroesArea(board, visibilityBoard, cursorRow, cursorCol, visited);
-                            }
+                            bool[,] visited = new bool[board.GetLength(0), board.GetLength(1)];
+                            OpenZeroesArea(board, visibilityBoard, cursorRow, cursorCol, visited);
                         }
                     }
                 }
+            }
 
             PrintBoard(board, visibilityBoard, cursorRow, cursorCol);
             //PrintMinesLeft();
             PrintTimeElapsed(start);
             PrintMessageOnConsole("Arrows to move, \"A\" to mark mine, \"S\" to open cell", 20, 0); // temporary 
-            
+
             // catch game end and exit this loop
         }
 
-        //WriteEndGameMessage();
-        //WriteHighScore();
-        //AskForNewGame();
-        //}
 
+        DateTime end = DateTime.Now;
+        Regex ex = new Regex("score: [0-9].+"); ///if issue with this the below listed match remove the dot "[0-9]+"
+        int currentScore = EndTimeElapsed(start, end);
+        int currentHighScore = 0;
+        StreamReader reader = new StreamReader("..\\..\\Highscores.txt");
+        string line = reader.ReadToEnd();
+        Match match = ex.Match(line);
+        currentHighScore = int.Parse(match.ToString()
+                                    .Substring(7));
+        reader.Close();
 
+        WriteHighScore(currentHighScore, currentScore);
+        AskForNewGame();
+        WriteEndGameMessage();
+        Console.ReadKey();
     }
 }
