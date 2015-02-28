@@ -356,9 +356,11 @@ class CerberusMinesweeper
     /// 1 - visible
     /// 2 - marked as mine
     /// </param>
+
     static void PrintBoard(string[,] minesArray, string[,] visibilityArray, int curRow, int curCol)
     {
         Console.SetCursorPosition(0, 1);
+
 
         for (int row = 0; row < minesArray.GetLength(0); row++)
         {
@@ -554,7 +556,7 @@ class CerberusMinesweeper
             maxRow = 16;
             maxCol = 16;
         }
-        else
+        else if (difficulty == 3)
         {
             mines = 99;
             maxRow = 16;
@@ -634,9 +636,25 @@ class CerberusMinesweeper
     /// Write end game message with high score alert if any
     /// </summary>
     /// <param name="scoreFilePath"> path to the file with the high scores </param>
+    static int CheckIfGameWon(string[,] minesArray, string[,] visibilityArray, int counter)
+    {
+        //Niko worked here
+        //DONE: Made the counter add one for every visible block
+        for (int i = 0; i < minesArray.GetLength(0); i++)
+        {
+            for (int p = 0; p < minesArray.GetLength(1); p++)
+            {
+                if (visibilityArray[i, p] == "1")
+                {
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
     static void WriteEndGameMessage()
     {
-        // Niko will work here...
         // TODO: Implement message print for end of the game (win and lose)
         Console.Clear();
         Console.BackgroundColor = ConsoleColor.Gray;
@@ -675,9 +693,9 @@ class CerberusMinesweeper
         Console.Write("Please enter your name for the top scoreboard: ");
         string name = Console.ReadLine();
 
-         StreamReader readerToAr = new StreamReader("..\\..\\Highscores.txt");
-         string[] lines = readerToAr.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-         readerToAr.Close();
+        StreamReader readerToAr = new StreamReader("..\\..\\Highscores.txt");
+        string[] lines = readerToAr.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+        readerToAr.Close();
 
         string dificultyStr = "";
         if (dificulty == 1)
@@ -696,7 +714,7 @@ class CerberusMinesweeper
         if (currentScore < currentHighScore)
         {
             string writeHighScore = String.Format("user: {0} dificulty: {1} score: {2}", name, dificultyStr, currentScore);
-            lines[dificulty-1] = writeHighScore;
+            lines[dificulty - 1] = writeHighScore;
             File.Delete("..\\..\\Highscores.txt");
             StreamWriter writer = new StreamWriter("..\\..\\Highscores.txt", true);
             using (writer)
@@ -845,7 +863,32 @@ class CerberusMinesweeper
                             bool[,] visited = new bool[board.GetLength(0), board.GetLength(1)];
                             OpenZeroesArea(board, visibilityBoard, cursorRow, cursorCol, visited);
                         }
+
                     }
+
+                }
+
+            }
+
+            if (dificulty == 1)
+            {
+                if (CheckIfGameWon(board, visibilityBoard, 0) == 71)
+                {
+                    break;
+                }
+            }
+            else if (dificulty == 2)
+            {
+                if (CheckIfGameWon(board, visibilityBoard, 0) == 216)
+                {
+                    break;
+                }
+            }
+            else if (dificulty == 3)
+            {
+                if (CheckIfGameWon(board, visibilityBoard, 0) == 381)
+                {
+                    break;
                 }
             }
 
