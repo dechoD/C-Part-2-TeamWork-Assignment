@@ -734,7 +734,7 @@ class CerberusMinesweeper
         else
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Current time is: {0}\n\rYour time is: {1}", currentHighScore, currentScore);
+            Console.WriteLine("Best time is: {0}\n\rYour time is: {1}", currentHighScore, currentScore);
             Console.ForegroundColor = ConsoleColor.White;
         }
     }
