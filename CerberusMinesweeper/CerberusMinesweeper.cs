@@ -137,7 +137,8 @@ class CerberusMinesweeper
     /// <param name="visibilityArray"> The array with the visibility , flagged mines are "2" </param>
     /// <returns> the count to be printed by PrintMinesLeft method </returns>
     static int CountMinesLeft(string[,] board, string[,] visibilityArray, int count)
-    {
+    { 
+        
         //Niko worked here
         // TODO: Implement a method to calculate the mines left to be marked
         if (visibilityArray.Length == 81)
@@ -726,13 +727,13 @@ class CerberusMinesweeper
 
             }
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("You have the highest score!\n\rYour score is: {0}", currentScore);
+            Console.WriteLine("You have the fastest time!\n\rYour time is: {0}", currentScore);
             Console.ForegroundColor = ConsoleColor.White;
         }
         else
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Current highscore is: {0}\n\rYour score is: {1}", currentHighScore, currentScore);
+            Console.WriteLine("Current time is: {0}\n\rYour time is: {1}", currentHighScore, currentScore);
             Console.ForegroundColor = ConsoleColor.White;
         }
     }
@@ -740,16 +741,11 @@ class CerberusMinesweeper
     /// <summary>
     /// Ask the user if he wants new game
     /// </summary>
-    static void AskForNewGame(bool win)
+    static void AskForNewGame()
     {
         // Implement logic for new game question to user and exit if negative
         // Ivan worked here
-        if (!win)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("***GAME OVER***");
-            Console.ForegroundColor = ConsoleColor.White;
-        }
+        
         Console.WriteLine();
         Console.WriteLine("Press 1 for new game");
         Console.WriteLine("Press 2 for exit");
@@ -930,8 +926,14 @@ class CerberusMinesweeper
             readerToAr.Close();
             WriteHighScore(currentHighScore, currentScore, dificulty);
         }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("***GAME OVER***");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
 
-        AskForNewGame(win);
+        AskForNewGame();
         WriteEndGameMessage();
         Console.ReadKey();
     }
