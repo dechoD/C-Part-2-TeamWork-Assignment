@@ -897,6 +897,8 @@ class CerberusMinesweeper
                 if (CheckIfGameWon(board, visibilityBoard, 0) == 71)
                 {
                     win = true;
+                    PrintBoard(board, visibilityBoard, cursorRow, cursorCol);
+                    PrintMessageOnConsole("Arrows to move, \"A\" to mark mine, \"S\" to open cell", 20, 0);
                     break;
                 }
             }
@@ -905,7 +907,8 @@ class CerberusMinesweeper
                 if (CheckIfGameWon(board, visibilityBoard, 0) == 216)
                 {
                     win = true;
-
+                    PrintBoard(board, visibilityBoard, cursorRow, cursorCol);
+                    PrintMessageOnConsole("Arrows to move, \"A\" to mark mine, \"S\" to open cell", 20, 0);
                     break;
                 }
             }
@@ -914,7 +917,8 @@ class CerberusMinesweeper
                 if (CheckIfGameWon(board, visibilityBoard, 0) == 381)
                 {
                     win = true;
-
+                    PrintBoard(board, visibilityBoard, cursorRow, cursorCol);
+                    PrintMessageOnConsole("Arrows to move, \"A\" to mark mine, \"S\" to open cell", 20, 0);
                     break;
                 }
             }
