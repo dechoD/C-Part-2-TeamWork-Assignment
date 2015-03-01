@@ -357,6 +357,23 @@ class CerberusMinesweeper
     /// 1 - visible
     /// 2 - marked as mine
     /// </param>
+    static void ShowBoard(string[,] minesArray, string[,] visibilityArray, int curRow, int curCol)
+    {
+        for (int row = 0; row < minesArray.GetLength(0); row++)
+        {
+            for (int col = 0; col < minesArray.GetLength(1); col++)
+            {
+                if (minesArray[row, col] == "*")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.SetCursorPosition(col, row + 1);
+                    Console.Write("*");
+                    Console.ResetColor();
+                }
+            }
+        }
+    }
+
 
     static void PrintBoard(string[,] minesArray, string[,] visibilityArray, int curRow, int curCol)
     {
@@ -859,6 +876,8 @@ class CerberusMinesweeper
 
                         if (board[cursorRow, cursorCol] == "*")
                         {
+                            ShowBoard(board, visibilityBoard, cursorRow, cursorCol);
+                            PrintMessageOnConsole("Arrows to move, \"A\" to mark mine, \"S\" to open cell", 20, 0); // temporary 
                             break;  // <--- end game logic to be implemented 
                         }
                         if (board[cursorRow, cursorCol] == "0")
