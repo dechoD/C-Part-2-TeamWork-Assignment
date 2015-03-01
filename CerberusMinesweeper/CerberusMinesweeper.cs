@@ -691,8 +691,7 @@ class CerberusMinesweeper
         ///Vely worked here
         // TODO: Implement high scores print on the console with current highscore in different color
 
-        Console.Write("Please enter your name for the top scoreboard: ");
-        string name = Console.ReadLine();
+      
 
         StreamReader readerToAr = new StreamReader("..\\..\\Highscores.txt");
         string[] lines = readerToAr.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
@@ -714,6 +713,8 @@ class CerberusMinesweeper
 
         if (currentScore < currentHighScore)
         {
+            Console.Write("Please enter your name for the top scoreboard: ");
+            string name = Console.ReadLine();
             string writeHighScore = String.Format("user: {0} dificulty: {1} score: {2}", name, dificultyStr, currentScore);
             lines[dificulty - 1] = writeHighScore;
             File.Delete("..\\..\\Highscores.txt");

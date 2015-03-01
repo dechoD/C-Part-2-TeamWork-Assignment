@@ -1,3 +1,3 @@
-user: misho dificulty: easy score: 38
-user: {0} dificulty: medium score: 999999
-user: ddd dificulty: hard score: 0
+user: user dificulty: easy score: 9999
+user: user dificulty: medium score: 9999
+user: user dificulty: hard score: 9999
