@@ -753,7 +753,7 @@ class CerberusMinesweeper
         Console.WriteLine();
         Console.WriteLine("Press 1 for new game");
         Console.WriteLine("Press 2 for exit");
-        int choise = int.Parse(Console.ReadLine());
+        string choise = Console.ReadLine();
 
         bool check = false;
         do
@@ -761,7 +761,7 @@ class CerberusMinesweeper
 
             switch (choise)
             {
-                case 1:
+                case "1":
                     {
                         check = true;
                         Console.Clear();
@@ -769,14 +769,14 @@ class CerberusMinesweeper
                         // returns to the main method if the user choose new game
                         break;
                     }
-                case 2:
+                case "2":
                     {
                         check = true;
                         break;
                     }
                 default:
                     Console.Write("Please press 1 for new game or 2 for exit: ");
-                    choise = int.Parse(Console.ReadLine()); ///if we try with something other than digit it will boom
+                    choise = Console.ReadLine(); ///if we try with something other than digit it will boom
                     check = false;
                     break;
             }
