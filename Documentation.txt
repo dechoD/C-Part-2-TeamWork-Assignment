@@ -1,0 +1,27 @@
+Team Members:
+
+Velimira Madjarova user : velimira.madjarova
+Pavleta Taseva     user : pavleta
+Decho Dechev       user : decho.D
+Mihail Yankov      user : M.Yankov
+Kiril Borisov      user : borisov.kiril760
+Ivan Kitanovski    user : ivank0900
+Niko Tsonev        user : Kambocha
+Dobromir Ganev     user : DobryG
+
+The game is called Minesweeper. It is a simple classic game for windows.
+The goal is to mark all mine cells and open the non mine cells using the revealed digits for hints.
+The digit represents the count of the mines in the neighbouring 8 cells.
+
+The git repository address is:
+https://github.com/dechoD/C-Part-2-TeamWork-Assignment.git
+ 
+All of the team mates contributed to the project. We coordinated via gmail and personal meetings.
+We met on different occasions in and out of the academy. 
+
+
+
+
+
+
+
